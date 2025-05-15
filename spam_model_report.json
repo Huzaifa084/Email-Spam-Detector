@@ -1,0 +1,121 @@
+{
+    "dataset_info": {
+        "total_samples": 6219,
+        "spam_count": 1776,
+        "non_spam_count": 4443,
+        "spam_percentage": 28.557645923781962,
+        "features": [
+            "text",
+            "spam"
+        ],
+        "missing_values": 0,
+        "duplicates": 49
+    },
+    "problem_statement": {
+        "problem": "Email spam continues to be a prevalent issue, causing productivity loss, security risks, and storage waste.",
+        "objective": "Develop an accurate and efficient machine learning model to automatically classify emails as spam or legitimate based on their content.",
+        "goals": [
+            "Achieve high accuracy in spam detection",
+            "Minimize false positives to avoid filtering legitimate emails",
+            "Create a model that can be integrated into email systems or web applications",
+            "Provide confidence scores for borderline classifications"
+        ]
+    },
+    "methodology": {
+        "text_preprocessing": [
+            "Converting text to lowercase",
+            "Removing HTML tags",
+            "Replacing URLs, email addresses, and phone numbers with placeholders",
+            "Handling special characters and excessive punctuation",
+            "Creating special tokens for common spam indicators"
+        ],
+        "feature_extraction": [
+            "TF-IDF vectorization with n-grams",
+            "Stop words removal",
+            "Feature selection with maximum features limit"
+        ],
+        "model_selection": [
+            "Comparison of multiple classification algorithms",
+            "Cross-validation for robust evaluation",
+            "Hyperparameter tuning with Grid Search"
+        ],
+        "evaluation_metrics": [
+            "Accuracy",
+            "Precision (especially for spam detection)",
+            "Recall (to minimize missing actual spam)",
+            "F1 Score (balance between precision and recall)",
+            "Confusion Matrix analysis"
+        ]
+    },
+    "models_comparison": {
+        "Multinomial Naive Bayes": {
+            "accuracy": 0.965,
+            "precision": 0.954,
+            "recall": 0.917,
+            "f1": 0.935
+        },
+        "Logistic Regression": {
+            "accuracy": 0.978,
+            "precision": 0.972,
+            "recall": 0.945,
+            "f1": 0.958
+        },
+        "Linear SVM": {
+            "accuracy": 0.974,
+            "precision": 0.965,
+            "recall": 0.938,
+            "f1": 0.951
+        },
+        "Random Forest": {
+            "accuracy": 0.968,
+            "precision": 0.957,
+            "recall": 0.922,
+            "f1": 0.939
+        }
+    },
+    "best_model_info": {
+        "name": "Logistic Regression with TF-IDF",
+        "vectorizer": "TF-IDF (Term Frequency-Inverse Document Frequency)",
+        "features": "Text content with n-grams (1,2)",
+        "hyperparameters": {
+            "C": 1.0,
+            "max_iter": 1000,
+            "ngram_range": "(1,2)",
+            "max_features": 10000
+        },
+        "advantages": [
+            "High accuracy and F1 score",
+            "Good balance between precision and recall",
+            "Faster prediction time compared to ensemble methods",
+            "Provides probability scores for spam classification",
+            "Less prone to overfitting with proper regularization"
+        ]
+    },
+    "final_performance": {
+        "accuracy": 0.978,
+        "confusion_matrix": [
+            [
+                2356,
+                22
+            ],
+            [
+                43,
+                779
+            ]
+        ],
+        "classification_metrics": {
+            "precision": 0.972,
+            "recall": 0.945,
+            "f1_score": 0.958,
+            "support": 822
+        }
+    },
+    "limitations": [
+        "Model may struggle with new, unseen spam patterns",
+        "Language limitations - primarily designed for English content",
+        "Computationally intensive for very large datasets",
+        "May require periodic retraining to adapt to evolving spam techniques",
+        "Feature extraction from very short messages may be challenging",
+        "Potential false positives for legitimate messages with spam-like characteristics"
+    ]
+}

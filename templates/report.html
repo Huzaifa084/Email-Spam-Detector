@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spam Detection Model Report</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --background-color: #f8f9fa;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --primary-color: #4361ee;
+        }
+        
+        .dark-mode {
+            --background-color: #212529;
+            --text-color: #f8f9fa;
+            --card-bg: #343a40;
+            --border-color: #495057;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            padding-bottom: 50px;
+        }
+        
+        .report-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .report-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .navbar-custom {
+            background-color: #3a0ca3;
+        }
+        
+        .btn-theme {
+            background-color: transparent;
+            border: none;
+            color: white;
+        }
+        
+        .progress-bar {
+            border-radius: 10px;
+        }
+        
+        .model-comparison-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .model-comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .advantage-item {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .advantage-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .limitation-item {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .limitation-item:before {
+            content: "!";
+            position: absolute;
+            left: 0;
+            color: #ffc107;
+            font-weight: bold;
+            background-color: #fff3cd;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+        }
+        
+        .info-box {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-left: 4px solid #4361ee;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .report-section {
+                padding: 15px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .report-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-shield-check"></i> Advanced Email Spam Detector
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/report">
+                            <i class="bi bi-file-earmark-text"></i> Model Report
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-theme" id="theme-toggle">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="report-container">
+        <!-- Header -->
+        <div class="text-center mt-4 mb-4">
+            <h1><i class="bi bi-graph-up"></i> Spam Detection Model Report</h1>
+            <p class="lead">Comprehensive analysis of our email spam classification model</p>
+            <button class="btn btn-primary no-print" onclick="window.print()">
+                <i class="bi bi-printer"></i> Print Report
+            </button>
+        </div>
+
+        <!-- Problem Statement Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-question-circle"></i> Problem Statement and Objective</h2>
+            <div class="info-box">
+                <h5>{{ report.problem_statement.problem }}</h5>
+            </div>
+            <p class="lead">{{ report.problem_statement.objective }}</p>
+            
+            <h5 class="mt-4">Goals:</h5>
+            <ul class="list-group list-group-flush">
+                {% for goal in report.problem_statement.goals %}
+                <li class="list-group-item">{{ goal }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Dataset Information Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-database"></i> Dataset Information</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Total Samples</th>
+                                <td>{{ report.dataset_info.total_samples }}</td>
+                            </tr>
+                            <tr>
+                                <th>Spam Emails</th>
+                                <td>{{ report.dataset_info.spam_count }} ({{ report.dataset_info.spam_percentage|round(1) }}%)</td>
+                            </tr>
+                            <tr>
+                                <th>Non-Spam Emails</th>
+                                <td>{{ report.dataset_info.non_spam_count }} ({{ (100 - report.dataset_info.spam_percentage)|round(1) }}%)</td>
+                            </tr>
+                            <tr>
+                                <th>Missing Values</th>
+                                <td>{{ report.dataset_info.missing_values }}</td>
+                            </tr>
+                            <tr>
+                                <th>Duplicates</th>
+                                <td>{{ report.dataset_info.duplicates }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='class_distribution_pie.png') }}" alt="Class Distribution" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Methodology Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-gear"></i> Methodology</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Text Preprocessing</h4>
+                    <ul class="list-group list-group-flush mb-4">
+                        {% for item in report.methodology.text_preprocessing %}
+                        <li class="list-group-item">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Feature Extraction</h4>
+                    <ul class="list-group list-group-flush mb-4">
+                        {% for item in report.methodology.feature_extraction %}
+                        <li class="list-group-item">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Model Selection</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for item in report.methodology.model_selection %}
+                        <li class="list-group-item">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Evaluation Metrics</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for item in report.methodology.evaluation_metrics %}
+                        <li class="list-group-item">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Models Comparison Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-bar-chart"></i> Models Comparison</h2>
+            
+            <div class="image-container mb-4">
+                <img src="{{ url_for('static', filename='model_comparison.png') }}" alt="Model Comparison" class="img-fluid">
+            </div>
+            
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for model_name, metrics in report.models_comparison.items() %}
+                <div class="col">
+                    <div class="card h-100 model-comparison-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">{{ model_name }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Accuracy:</h6>
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar bg-primary" role="progressbar" 
+                                     style="width: {{ metrics.accuracy * 100 }}%;" 
+                                     aria-valuenow="{{ metrics.accuracy * 100 }}" aria-valuemin="0" aria-valuemax="100">
+                                    {{ (metrics.accuracy * 100)|round(1) }}%
+                                </div>
+                            </div>
+                            
+                            <h6>Precision (Spam):</h6>
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                     style="width: {{ metrics.precision * 100 }}%;" 
+                                     aria-valuenow="{{ metrics.precision * 100 }}" aria-valuemin="0" aria-valuemax="100">
+                                    {{ (metrics.precision * 100)|round(1) }}%
+                                </div>
+                            </div>
+                            
+                            <h6>Recall (Spam):</h6>
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar bg-danger" role="progressbar" 
+                                     style="width: {{ metrics.recall * 100 }}%;" 
+                                     aria-valuenow="{{ metrics.recall * 100 }}" aria-valuemin="0" aria-valuemax="100">
+                                    {{ (metrics.recall * 100)|round(1) }}%
+                                </div>
+                            </div>
+                            
+                            <h6>F1 Score:</h6>
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar bg-warning" role="progressbar" 
+                                     style="width: {{ metrics.f1 * 100 }}%;" 
+                                     aria-valuenow="{{ metrics.f1 * 100 }}" aria-valuemin="0" aria-valuemax="100">
+                                    {{ (metrics.f1 * 100)|round(1) }}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Best Model Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-trophy"></i> Best Model</h2>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">{{ report.best_model_info.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Key Features</h5>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item"><strong>Vectorizer:</strong> {{ report.best_model_info.vectorizer }}</li>
+                                <li class="list-group-item"><strong>Features:</strong> {{ report.best_model_info.features }}</li>
+                            </ul>
+                            
+                            <h5>Hyperparameters</h5>
+                            <ul class="list-group list-group-flush">
+                                {% for param, value in report.best_model_info.hyperparameters.items() %}
+                                <li class="list-group-item"><strong>{{ param }}:</strong> {{ value }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Why This Model?</h5>
+                            <div class="advantages">
+                                {% for advantage in report.best_model_info.advantages %}
+                                <div class="advantage-item">{{ advantage }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Performance Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-graph-up-arrow"></i> Final Model Performance</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='confusion_matrix_report.png') }}" alt="Confusion Matrix" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Performance Metrics</h4>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Accuracy</th>
+                                <td>{{ (report.final_performance.accuracy * 100)|round(2) }}%</td>
+                            </tr>
+                            <tr>
+                                <th>Precision (Spam)</th>
+                                <td>{{ (report.final_performance.classification_metrics.precision * 100)|round(2) }}%</td>
+                            </tr>
+                            <tr>
+                                <th>Recall (Spam)</th>
+                                <td>{{ (report.final_performance.classification_metrics.recall * 100)|round(2) }}%</td>
+                            </tr>
+                            <tr>
+                                <th>F1 Score</th>
+                                <td>{{ (report.final_performance.classification_metrics.f1_score * 100)|round(2) }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="alert alert-info mt-3">
+                        <h5><i class="bi bi-info-circle"></i> Interpretation</h5>
+                        <p>Our model achieves an impressive accuracy of {{ (report.final_performance.accuracy * 100)|round(1) }}%, with a high precision of {{ (report.final_performance.classification_metrics.precision * 100)|round(1) }}% for spam detection, meaning there's a low chance of marking legitimate emails as spam.</p>
+                        <p>The recall value of {{ (report.final_performance.classification_metrics.recall * 100)|round(1) }}% indicates the model successfully identifies most spam messages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Limitations and Challenges Section -->
+        <div class="report-section">
+            <h2 class="section-header"><i class="bi bi-exclamation-triangle"></i> Limitations and Challenges</h2>
+            
+            <div class="alert alert-warning">
+                <p>While our model performs well, it's important to acknowledge its limitations:</p>
+            </div>
+            
+            <div class="limitations mt-3">
+                {% for limitation in report.limitations %}
+                <div class="limitation-item">{{ limitation }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5">
+            <p>Generated on <span id="current-date"></span></p>
+            <p><small>Email Spam Classifier Model Report</small></p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Get the current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            icon.classList.remove('bi-moon-fill');
+            icon.classList.add('bi-sun-fill');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('bi-moon-fill');
+                icon.classList.add('bi-sun-fill');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-fill');
+            }
+        });
+    </script>
+</body>
+</html>

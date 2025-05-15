@@ -23,6 +23,53 @@ function fillExampleEmail(type) {
   }
 }
 
+// Function to copy results to clipboard
+function copyResultsToClipboard() {
+  // Get the prediction result
+  const isPredictionSpam = document.querySelector('.spam-indicator.spam') !== null;
+  const predictionText = isPredictionSpam ? 'SPAM DETECTED' : 'LEGITIMATE EMAIL';
+  
+  // Get the confidence scores
+  const spamConfidence = document.getElementById('spamConfidenceText').textContent.trim();
+  const notSpamConfidence = document.getElementById('notSpamConfidenceText').textContent.trim();
+  
+  // Get the analyzed text
+  const analyzedText = document.querySelector('.email-text').textContent.trim();
+  
+  // Create the text to copy
+  const textToCopy = `Email Analysis Results:
+---------------------
+Verdict: ${predictionText}
+Spam Likelihood: ${spamConfidence}
+Legitimate Email Likelihood: ${notSpamConfidence}
+---------------------
+Analyzed Text:
+${analyzedText}
+---------------------
+Analyzed with Advanced Email Spam Detector`;
+  
+  // Copy to clipboard
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      // Show toast if it exists
+      const toastElement = document.getElementById('toastMessage');
+      if (toastElement) {
+        const toastBody = toastElement.querySelector('.toast-body');
+        if (toastBody) {
+          toastBody.textContent = 'Results copied to clipboard!';
+          const toast = new bootstrap.Toast(toastElement);
+          toast.show();
+        }
+      } else {
+        alert('Results copied to clipboard!');
+      }
+    })
+    .catch(err => {
+      console.error('Error copying text: ', err);
+      alert('Failed to copy results. Please try again.');
+    });
+}
+
 // Character counter
 function updateCharCount() {
   const textarea = document.getElementById('email');
@@ -109,9 +156,10 @@ function highlightCurrentStep(step) {
 // Function to copy results to clipboard (correctly named to match the onclick handler)
 function copyResultsToClipboard() {
   const emailText = document.querySelector('.email-text').textContent;
-  const confidence = document.getElementById('confidenceText').textContent;
+  const spamConfidence = document.getElementById('spamConfidenceText').textContent;
+  const notSpamConfidence = document.getElementById('notSpamConfidenceText').textContent;
   const prediction = document.querySelector('.spam-indicator h3').textContent;
-  const result = `Prediction: ${prediction}\nConfidence Level: ${confidence}%\nAnalyzed Text: ${emailText}`;
+  const result = `Prediction: ${prediction}\nSpam Likelihood: ${spamConfidence}\nLegitimate Email Likelihood: ${notSpamConfidence}\nAnalyzed Text: ${emailText}`;
 
   navigator.clipboard.writeText(result).then(() => {
     showToast('Results copied to clipboard!');
