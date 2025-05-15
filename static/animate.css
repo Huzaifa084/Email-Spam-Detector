@@ -1,0 +1,71 @@
+/* Simple animations for email spam detector */
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+  40% {transform: translateY(-20px);} 
+  60% {transform: translateY(-10px);} 
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Progress bar animation */
+.progress-animated .progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+/* Result icons */
+.result-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+/* Hover effects */
+.btn-back:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Theme toggle for results page */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  padding: 10px;
+  border-radius: 50%;
+  background: #4361ee;
+  color: white;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
