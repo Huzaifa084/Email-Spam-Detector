@@ -2,40 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="vi      .progress-bar {
-        border-radius: 10px;
-        font-weight: bold;
-        transition: width 1s ease-in-out;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        font-size: 0.9rem;
-        overflow: visible; /* Changed from hidden to visible */
-        position: relative; /* Added for proper text positioning */
-        min-width: 2.5rem; /* Ensure the progress bar is always wide enough to show percentage */
-      }
-      
-      /* Added style to position the text better */
-      .progress-bar span {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        color: #212529;
-        left: 0;
-        right: 0;
-      }th=device-width, initial-scale=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Results - Advanced Email Spam Detector</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
     <style>
       :root {
         --background-color: #f8f9fa;
@@ -59,59 +29,153 @@
         color: var(--text-color);
         transition: all 0.3s ease;
       }
-      .result-container {
+
+      .main-container {
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
       }
-      .result-card {
+
+      .result-container {
         background-color: var(--card-bg);
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 25px;
         margin-top: 20px;
-        animation: fadeIn 0.5s ease-in;
+        border: 1px solid var(--border-color);
       }
 
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
       .navbar-custom {
         background-color: #3a0ca3;
       }
-      .btn-back {
-        background-color: #4361ee;
-        border: none;
+
+      .result-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
       }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .progress-step {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--step-inactive-bg);
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .progress-line {
+        position: absolute;
+        top: 15px;
+        height: 2px;
+        background: var(--step-inactive-bg);
+        width: 100%;
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .active .step-number {
+        background-color: var(--step-active-bg);
+        color: white;
+      }
+
       .spam-indicator {
-        padding: 20px;
-        border-radius: 8px;
-        margin: 20px 0;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-align: center;
         color: white;
         font-weight: bold;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
       }
+
       .spam {
         background-color: #e63946;
       }
-      .ham {
+
+      .not-spam {
         background-color: #2a9d8f;
       }
-      .progress {
-        height: 20px;
-        background-color: #e9ecef;
-        border-radius: 10px;
-        overflow: hidden;
+
+      .confidence-container {
+        background-color: var(--card-bg);
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
         margin-bottom: 20px;
       }
+
+      .confidence-bar {
+        height: 36px;
+        margin-bottom: 5px;
+      }
+
+      .spam-bar {
+        background-color: #e63946;
+      }
+
+      .not-spam-bar {
+        background-color: #2a9d8f;
+      }
+
+      .email-content {
+        background-color: var(--card-bg);
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        white-space: pre-wrap;
+        word-break: break-word;
+        margin-bottom: 20px;
+        font-family: 'Courier New', monospace;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .footer {
+        margin-top: 50px;
+        text-align: center;
+        color: var(--text-color);
+      }
+
+      .action-buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .action-button:hover {
+        transform: translateY(-2px);
+      }
+      
       .progress-bar {
-        height: 100%;
         border-radius: 10px;
         font-weight: bold;
         transition: width 1s ease-in-out;
@@ -120,97 +184,81 @@
         justify-content: center;
         white-space: nowrap;
         font-size: 0.9rem;
-        overflow: visible; /* Changed from hidden to visible */
-        position: relative; /* Added for proper text positioning */
+        overflow: visible;
+        position: relative;
+        min-width: 2.5rem;
       }
-
-      /* Added style to position the text better */
+      
       .progress-bar span {
         position: absolute;
         width: 100%;
         text-align: center;
-        color: #ffffff;
-        white-space: nowrap; /* ensure number + % stay on same line */
-      }
-      .email-text {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 20px;
-        border: 1px solid #dee2e6;
-      }
-      .progress-steps {
-        display: flex;
-        justify-content: space-between;
-        padding: 0;
-        margin: 0 auto 30px;
-        position: relative;
-        max-width: 600px;
-      }
-      .progress-line {
-        position: absolute;
-        top: 24px;
         left: 0;
         right: 0;
-        height: 2px;
-        background-color: #dee2e6;
-        z-index: 1;
       }
-      .progress-step {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        flex: 1;
+      
+      .dark-mode .progress-bar span {
+        color: #fff;
       }
-      .progress-step .step-number {
-        width: 48px;
-        height: 48px;
+      
+      .theme-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 100;
+        padding: 10px;
         border-radius: 50%;
-        background-color: var(--step-inactive-bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto 8px;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: all 0.5s ease-in-out;
-      }
-      .progress-step.active .step-number {
-        background-color: var(--step-active-bg);
+        background: #4361ee;
         color: white;
-      }
-      .progress-step-text {
-        font-size: 16px;
-        color: var(--text-color);
-      }
-      .confidence-label {
-        font-weight: 500;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+        border: none;
       }
-      .confidence-value {
-        font-weight: bold;
+      
+      .theme-toggle:hover {
+        transform: scale(1.1);
+      }
+      
+      /* Toast styling */
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--card-bg);
         color: var(--text-color);
-        display: inline-block;
-        min-width: 40px;
-        text-align: right;
-        white-space: nowrap;
-      }
-      .confidence-container {
-        background-color: var(--background-color);
-        border-radius: 8px;
-        padding: 15px;
-        margin-top: 10px;
         border: 1px solid var(--border-color);
+        z-index: 9999;
+      }
+      
+      .toast-header {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .dark-mode .btn-outline-secondary {
+        color: #f8f9fa;
+        border-color: #6c757d;
+      }
+      
+      .dark-mode .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: #f8f9fa;
       }
     </style>
   </head>
+  
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
       <div class="container">
-        <a class="navbar-brand" href="/">Advanced Email Spam Detector</a>
+        <a class="navbar-brand" href="#">Advanced Email Spam Detector</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -227,6 +275,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/#how-it-works">How It Works</a>
+            </li>
+            <li class="nav-item">
               <button class="btn btn-link nav-link" id="theme-toggle">
                 <i class="bi bi-moon-fill" id="themeIcon"></i>
               </button>
@@ -236,208 +290,153 @@
       </div>
     </nav>
 
-    <!-- Enhanced UI for Results Page with Step Indicators -->
-    <div class="result-container">
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="text-center mt-4">
+        <h1>Email Analysis Results</h1>
+        <p class="lead">Our model has analyzed your email content</p>
+      </div>
+
       <!-- Progress steps -->
-      <div class="progress-steps">
+      <div class="progress-steps mb-3">
         <div class="progress-line"></div>
-        <div class="progress-step">
+        <div class="progress-step active">
           <div class="step-number">1</div>
-          <div class="progress-step-text">Input</div>
+          <div>Input</div>
         </div>
-        <div class="progress-step">
+        <div class="progress-step active">
           <div class="step-number">2</div>
-          <div class="progress-step-text">Analysis</div>
+          <div>Analysis</div>
         </div>
         <div class="progress-step active">
           <div class="step-number">3</div>
-          <div class="progress-step-text">Results</div>
+          <div>Results</div>
         </div>
       </div>
 
-      <div class="result-card">
-        <h2 class="text-center mb-4">Analysis Results</h2>
+      <div class="result-container">
+        <div class="text-center mb-4">
+          {% if prediction == 1 %}
+          <i class="bi bi-exclamation-triangle result-icon text-danger"></i>
+          <div class="spam-indicator spam">SPAM DETECTED</div>
+          {% else %}
+          <i class="bi bi-check-circle result-icon text-success"></i>
+          <div class="spam-indicator not-spam">LEGITIMATE EMAIL</div>
+          {% endif %}
+        </div>
 
-        <!-- Spam or Ham verdict -->
-        {% if prediction == 1 %}
-        <div class="spam-indicator spam text-center animate-bounce">
-          <h3>SPAM DETECTED</h3>
-          <p>This email appears to be spam.</p>
-        </div>
-        {% elif prediction == 0 %}
-        <div class="spam-indicator ham text-center animate-pulse">
-          <h3>LEGITIMATE EMAIL</h3>
-          <p>This email appears to be legitimate (ham).</p>
-        </div>
-        {% else %}
-        <div class="spam-indicator bg-warning text-center animate-fade-in">
-          <h3>ANALYSIS ERROR</h3>
-          <p>We couldn't properly analyze this email.</p>
-        </div>
-        {% endif %}
-
-        <!-- Dual Confidence Score Display -->
-        <div class="confidence-container mb-4">
-          <h4>Confidence Levels:</h4>
-          
-          <!-- Spam Confidence -->
-          <div class="d-flex justify-content-between align-items-center mt-3">
-            <span class="confidence-label">
-              <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Spam Likelihood:
-            </span>
-            <span id="spamConfidenceText" class="confidence-value">
-              {{ confidence_spam }}%
-            </span>
-          </div>
-          <div class="progress mb-3">
-            <div
-              id="spamProgressBar"
-              class="progress-bar bg-danger"
-              role="progressbar"
-              aria-valuenow="{{ confidence_spam }}"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              <span id="spamProgressText">{{ confidence_spam }}%</span>
+        <div class="confidence-container">
+          <h5 class="mb-3">Confidence Score</h5>
+          <div>
+            <div class="d-flex justify-content-between mb-1">
+              <span><i class="bi bi-exclamation-triangle me-1"></i> Spam:</span>
+              <span id="spamConfidenceText">{{ spam_confidence }}%</span>
             </div>
-          </div>
-          
-          <!-- Not Spam Confidence -->
-          <div class="d-flex justify-content-between align-items-center mt-3">
-            <span class="confidence-label">
-              <i class="bi bi-shield-check text-success me-2"></i>Legitimate Email Likelihood:
-            </span>
-            <span id="notSpamConfidenceText" class="confidence-value">
-              {{ confidence_not_spam }}%
-            </span>
-          </div>
-          <div class="progress mb-3">
-            <div
-              id="notSpamProgressBar"
-              class="progress-bar bg-success"
-              role="progressbar"
-              aria-valuenow="{{ confidence_not_spam }}"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              <span id="notSpamProgressText">{{ confidence_not_spam }}%</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Original Email -->
-        <h4>Analyzed Text:</h4>
-        <div class="email-text p-3 bg-light border rounded">
-          {{ email_text | default('No text provided', true) }}
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="text-center mt-4">
-          <div class="row justify-content-center">
-            <div class="col-md-6">
-              <button
-                id="copyButton"
-                class="btn btn-secondary btn-lg w-100 mb-3"
-                onclick="copyResultsToClipboard()"
+            <div class="progress confidence-bar">
+              <div
+                class="progress-bar spam-bar"
+                role="progressbar"
+                style="width: {{ spam_confidence }}%"
+                aria-valuenow="{{ spam_confidence }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
               >
-                Copy Results to Clipboard
-              </button>
+                <span>{{ spam_confidence }}%</span>
+              </div>
             </div>
           </div>
-          <div class="row justify-content-center">
-            <div class="col-md-6">
-              <a href="/" class="btn btn-primary btn-lg btn-back w-100"
-                >Analyze Another Email</a
+          <div class="mt-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span><i class="bi bi-check-circle me-1"></i> Legitimate:</span>
+              <span id="notSpamConfidenceText">{{ not_spam_confidence }}%</span>
+            </div>
+            <div class="progress confidence-bar">
+              <div
+                class="progress-bar not-spam-bar"
+                role="progressbar"
+                style="width: {{ not_spam_confidence }}%"
+                aria-valuenow="{{ not_spam_confidence }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
               >
+                <span>{{ not_spam_confidence }}%</span>
+              </div>
             </div>
           </div>
         </div>
+
+        <div>
+          <h5 class="mb-3">Analyzed Email Content</h5>
+          <div class="email-content">
+            <div class="email-text">{{ email_content }}</div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button onclick="copyResultsToClipboard()" class="btn btn-outline-secondary action-button">
+            <i class="bi bi-clipboard"></i> Copy Results
+          </button>
+          <a href="/" class="btn btn-primary action-button">
+            <i class="bi bi-arrow-repeat"></i> Check Another Email
+          </a>
+          <a href="/report" class="btn btn-outline-primary action-button">
+            <i class="bi bi-file-earmark-text"></i> View Model Report
+          </a>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <p>© 2025 Email Spam Detector | Created with ❤️ using Flask & ML</p>
+      </div>
+    </div>
+    
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="floating-theme-toggle" title="Toggle Dark/Light Mode">
+      <i class="bi bi-moon-fill" id="floatingThemeIcon"></i>
+    </div>
+    
+    <!-- Toast notification for copy -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="toastMessage" data-bs-autohide="true" data-bs-delay="3000">
+      <div class="toast-header">
+        <strong class="me-auto"><i class="bi bi-info-circle me-2"></i>Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Results copied to clipboard!
       </div>
     </div>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="toastMessage"
-        class="toast align-items-center text-bg-primary border-0"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body">
-          </div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
-    </div>
-
+    <!-- Bootstrap JS and custom scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/scripts.js"></script>
+    
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Activate the steps progressively
-        const steps = document.querySelectorAll(".progress-step");
-        steps.forEach((step, index) => {
-          if (index <= 1) {
-            step.classList.add("active");
-          } else {
-            step.classList.remove("active");
-          }
-        });
-
-        // Set up spam confidence progress bar
-        let spamConfidenceValue = "{{ confidence_spam }}";
-        if (
-          spamConfidenceValue === "N/A" ||
-          spamConfidenceValue === "" ||
-          isNaN(parseFloat(spamConfidenceValue))
-        ) {
-          spamConfidenceValue = "0";
-        }
-
-        console.log("Spam Confidence value:", spamConfidenceValue); // Debug output
-
-        const spamProgressBar = document.getElementById("spamProgressBar");
-        if (spamProgressBar) {
-          setTimeout(() => {
-            spamProgressBar.style.width = spamConfidenceValue + "%";
-            console.log("Set spam progress bar width to:", spamConfidenceValue + "%");
-          }, 500);
-        }
-
-        // Set up not-spam confidence progress bar
-        let notSpamConfidenceValue = "{{ confidence_not_spam }}";
-        if (
-          notSpamConfidenceValue === "N/A" ||
-          notSpamConfidenceValue === "" ||
-          isNaN(parseFloat(notSpamConfidenceValue))
-        ) {
-          notSpamConfidenceValue = "0";
-        }
-
-        console.log("Not Spam Confidence value:", notSpamConfidenceValue); // Debug output
-
-        const notSpamProgressBar = document.getElementById("notSpamProgressBar");
-        if (notSpamProgressBar) {
-          setTimeout(() => {
-            notSpamProgressBar.style.width = notSpamConfidenceValue + "%";
-            console.log("Set not-spam progress bar width to:", notSpamConfidenceValue + "%");
-          }, 500);
-        }
-
-        // Activate the final step after a delay
-        setTimeout(() => {
-          steps.forEach((step, index) => {
-            if (index === 2) {
-              step.classList.add("active");
-            }
+      // Sync floating theme toggle with the navbar theme toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        const floatingToggle = document.getElementById('floating-theme-toggle');
+        if (floatingToggle) {
+          floatingToggle.addEventListener('click', toggleTheme);
+          
+          // Update floating toggle icon when theme changes
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.attributeName === 'class') {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const floatingIcon = document.getElementById('floatingThemeIcon');
+                if (floatingIcon) {
+                  if (isDarkMode) {
+                    floatingIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                  } else {
+                    floatingIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                  }
+                }
+              }
+            });
           });
-        }, 800);
+          
+          observer.observe(document.body, { attributes: true });
+        }
       });
     </script>
   </body>

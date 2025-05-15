@@ -45,3 +45,13 @@ Output 44: 0
 Output 45: 0
 Output 46: 1
 Output 47: 0
+Output 48: 0
+Output 49: 0
+Output 50: 0
+Output 51: 0
+Output 52: 0
+Output 53: 0
+Output 54: 0
+Output 55: 0
+Output 56: 0
+Output 57: 0

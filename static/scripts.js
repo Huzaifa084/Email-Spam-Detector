@@ -140,6 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Set up progress steps - make step 1 active by default
   highlightCurrentStep(1);
+  
+  // Add event listeners to all theme toggle buttons
+  const themeToggleButtons = document.querySelectorAll('#theme-toggle, .theme-toggle');
+  themeToggleButtons.forEach(button => {
+    if (button) {
+      button.addEventListener('click', toggleTheme);
+    }
+  });
 });
 
 // Progress steps highlighting

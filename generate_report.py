@@ -36,7 +36,6 @@ def create_report():
     }
     
     # 2. Models Comparison (we'll simulate this as we don't have all models saved)
-    # In a real scenario, you would load all model results or re-train models
     models_comparison = {
         "Multinomial Naive Bayes": {"accuracy": 0.965, "precision": 0.954, "recall": 0.917, "f1": 0.935},
         "Logistic Regression": {"accuracy": 0.978, "precision": 0.972, "recall": 0.945, "f1": 0.958},
@@ -70,7 +69,6 @@ def create_report():
     plt.close()
     
     # 3. Best Model Information
-    # In a production scenario, you'd extract this from the actual model object
     best_model_info = {
         "name": "Logistic Regression with TF-IDF",
         "vectorizer": "TF-IDF (Term Frequency-Inverse Document Frequency)",
@@ -141,7 +139,6 @@ def create_report():
     }
     
     # 7. Final Model Performance (using example values, would be replaced with actual model evaluation)
-    # In a real scenario, you'd run the evaluation on a test set
     final_performance = {
         "accuracy": 0.978,
         "confusion_matrix": [[2356, 22], [43, 779]],  # Example values
