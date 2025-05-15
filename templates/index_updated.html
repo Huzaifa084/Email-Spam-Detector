@@ -184,35 +184,6 @@
         background-color: #3a0ca3 !important;
       }
       
-      .teacher-card {
-        background: linear-gradient(135deg, rgba(58, 12, 163, 0.05) 0%, rgba(67, 97, 238, 0.05) 100%);
-        border: 2px solid #4361ee !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 20px;
-      }
-      
-      .teacher-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      }
-      
-      .teacher-badge {
-        background-color: #3a0ca3 !important;
-        color: white;
-        font-size: 0.9rem;
-        padding: 5px 10px;
-        border-radius: 4px;
-      }
-      
-      .teacher-name {
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: var(--text-color);
-      }
-      
       .how-it-works-card {
         background-color: var(--card-bg);
         border-color: var(--border-color) !important;
@@ -318,7 +289,7 @@
           </p>
         </div>
 
-        <form action="/" method="POST" id="emailForm">
+        <form action="/" method="POST" onsubmit="return showAnalysisStage(event)">
           <div class="mb-3">
             <label for="email" class="form-label">Email Content:</label>
             <textarea
@@ -380,18 +351,6 @@
       <div id="about" class="footer">
         <div class="p-4 rounded shadow-sm" style="background-color: var(--card-bg); border-color: var(--border-color) !important;">
           <h4 class="mb-4 text-primary">Project Team</h4>
-          
-          <!-- Teacher Section -->
-          <div class="teacher-card mb-4">
-            <div class="d-flex align-items-center mb-2">
-              <div class="teacher-badge me-2">
-                <i class="bi bi-mortarboard-fill me-1"></i>Instructor
-              </div>
-              <span class="teacher-name">Dr. Shahzad Hussain</span>
-            </div>
-            <p class="text-muted mb-0">Course Supervisor & Project Mentor</p>
-          </div>
-          
           <div class="row">
             <div class="col-md-6 mb-3">
               <div class="team-member p-2 rounded">
@@ -466,20 +425,6 @@
       
       // Sync floating theme toggle with the navbar theme toggle
       document.addEventListener('DOMContentLoaded', function() {
-        // Set up form submission with loading indicator
-        const form = document.getElementById('emailForm');
-        if (form) {
-          form.addEventListener('submit', function(e) {
-            // Show loading indicator
-            document.getElementById('loadingIndicator').style.display = 'block';
-            
-            // Update progress steps - highlight Analysis step
-            const steps = document.querySelectorAll('.progress-step');
-            steps[0].classList.add('active'); // Input step
-            steps[1].classList.add('active'); // Analysis step
-          });
-        }
-        
         const floatingToggle = document.getElementById('floating-theme-toggle');
         if (floatingToggle) {
           floatingToggle.addEventListener('click', toggleTheme);

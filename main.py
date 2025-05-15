@@ -23,9 +23,10 @@ def main_function():
         # print(text)
         emails = text['email']
         print(emails)
+        
         list_email = [emails]
         # print(list_email)
-          # Use a simpler approach with keyword-based classification
+        # Use a simpler approach with keyword-based classification
         spam_keywords = ['free', 'win', 'winner', 'cash', 'prize', 'viagra', 
                          'limited time', 'urgent', 'offer', 'money', 'million',
                          'guaranteed', 'click', 'buy now', 'casino', 'discount', 
@@ -66,15 +67,16 @@ def main_function():
                     count = int(count_file.read().strip())
             except (FileNotFoundError, ValueError):
                 count = 0
-            
-            # Increment count for new prediction
+              # Increment count for new prediction
             count += 1
-            
             # Write the prediction with its number
             f.write(f"Output {count}: {output}\n")
             
             # Save the updated count
-            with open('prediction_count.txt', 'w') as count_file:                count_file.write(str(count))        # Pass all necessary data to the template
+            with open('prediction_count.txt', 'w') as count_file:
+                count_file.write(str(count))
+                
+        # Pass all necessary data to the template
         # return render_template("show.html", prediction=output, confidence=confidence, email_text=emails)
         return render_template("show.html", 
                        prediction=output,

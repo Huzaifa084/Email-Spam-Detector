@@ -50,8 +50,51 @@
       }
 
       .result-icon {
-        font-size: 3rem;
-        margin-bottom: 15px;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .progress-step {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--step-inactive-bg);
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .progress-line {
+        position: absolute;
+        top: 15px;
+        height: 2px;
+        background: var(--step-inactive-bg);
+        width: 100%;
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .active .step-number {
+        background-color: var(--step-active-bg);
+        color: white;
       }
 
       .spam-indicator {
@@ -108,101 +151,56 @@
         overflow-y: auto;
       }
 
-      .action-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 20px;
-      }
-
-      .action-button {
-        min-width: 160px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 15px;
-      }
-
-      .progress-steps {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        position: relative;
-      }
-
-      .progress-step {
-        text-align: center;
-        flex: 1;
-        position: relative;
-        z-index: 1;
-      }
-
-      .step-number {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: var(--step-inactive-bg);
-        color: #6c757d;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 10px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-      }
-
-      .progress-line {
-        position: absolute;
-        top: 15px;
-        height: 2px;
-        background: var(--step-inactive-bg);
-        width: 100%;
-        transform: translateY(-50%);
-        z-index: 0;
-      }
-
-      .active .step-number {
-        background-color: var(--step-active-bg);
-        color: white;
-      }
-
       .footer {
         margin-top: 50px;
         text-align: center;
         color: var(--text-color);
       }
-      
-      .teacher-card {
-        background: linear-gradient(135deg, rgba(58, 12, 163, 0.05) 0%, rgba(67, 97, 238, 0.05) 100%);
-        border: 2px solid #4361ee !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 20px;
-      }
-      
-      .teacher-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      }
-      
-      .teacher-badge {
-        background-color: #3a0ca3 !important;
-        color: white;
-        font-size: 0.9rem;
-        padding: 5px 10px;
-        border-radius: 4px;
-      }
-      
-      .teacher-name {
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: var(--text-color);
+
+      .action-buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
       }
 
+      .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .action-button:hover {
+        transform: translateY(-2px);
+      }
+      
+      .progress-bar {
+        border-radius: 10px;
+        font-weight: bold;
+        transition: width 1s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        overflow: visible;
+        position: relative;
+        min-width: 2.5rem;
+      }
+      
+      .progress-bar span {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        right: 0;
+      }
+      
+      .dark-mode .progress-bar span {
+        color: #fff;
+      }
+      
       .theme-toggle {
         position: fixed;
         bottom: 20px;
@@ -222,32 +220,40 @@
         transition: transform 0.3s ease;
         border: none;
       }
-
+      
       .theme-toggle:hover {
         transform: scale(1.1);
       }
       
-      .debug-info {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: rgba(0,0,0,0.05);
-        border-radius: 8px;
-        border: 1px dashed var(--border-color);
-      }
-      
-      .toast-container {
+      /* Toast styling */
+      .toast {
         position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1050;
+        top: 20px;
+        right: 20px;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        z-index: 9999;
       }
       
-      .dark-mode .progress {
-        background-color: #495057;
+      .toast-header {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .dark-mode .btn-outline-secondary {
+        color: #f8f9fa;
+        border-color: #6c757d;
+      }
+      
+      .dark-mode .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: #f8f9fa;
       }
     </style>
   </head>
+  
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
@@ -269,6 +275,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/#how-it-works">How It Works</a>
+            </li>
+            <li class="nav-item">
               <button class="btn btn-link nav-link" id="theme-toggle">
                 <i class="bi bi-moon-fill" id="themeIcon"></i>
               </button>
@@ -282,9 +294,9 @@
     <div class="main-container">
       <div class="text-center mt-4">
         <h1>Email Analysis Results</h1>
-        <p class="lead">Our ML model has analyzed your email content</p>
+        <p class="lead">Our model has analyzed your email content</p>
       </div>
-      
+
       <!-- Progress steps -->
       <div class="progress-steps mb-3">
         <div class="progress-line"></div>
@@ -303,15 +315,6 @@
       </div>
 
       <div class="result-container">
-        <!-- Debug info -->
-        <div class="debug-info mb-4">
-          <h5 class="mb-2">Debug Info</h5>
-          <p>Prediction: {{ prediction }}</p>
-          <p>Spam Confidence: {{ spam_confidence }}</p>
-          <p>Not Spam Confidence: {{ not_spam_confidence }}</p>
-          <p>Email Content (first 50 chars): {{ email_content[:50] }}</p>
-        </div>
-
         <div class="text-center mb-4">
           {% if prediction == 1 %}
           <i class="bi bi-exclamation-triangle result-icon text-danger"></i>
@@ -384,16 +387,6 @@
       
       <!-- Footer -->
       <div class="footer">
-        <!-- Teacher Section -->
-        <div class="teacher-card mb-4 mx-auto" style="max-width: 500px;">
-          <div class="d-flex align-items-center mb-2 justify-content-center">
-            <div class="teacher-badge me-2">
-              <i class="bi bi-mortarboard-fill me-1"></i>Instructor
-            </div>
-            <span class="teacher-name">Dr. Shahzad Hussain</span>
-          </div>
-          <p class="text-muted mb-0 text-center">Course Supervisor & Project Mentor</p>
-        </div>
         <p>© 2025 Email Spam Detector | Created with ❤️ using Flask & ML</p>
       </div>
     </div>
@@ -404,15 +397,13 @@
     </div>
     
     <!-- Toast notification for copy -->
-    <div class="toast-container">
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="toastMessage" data-bs-autohide="true" data-bs-delay="3000">
-        <div class="toast-header">
-          <strong class="me-auto"><i class="bi bi-info-circle me-2"></i>Notification</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Results copied to clipboard!
-        </div>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="toastMessage" data-bs-autohide="true" data-bs-delay="3000">
+      <div class="toast-header">
+        <strong class="me-auto"><i class="bi bi-info-circle me-2"></i>Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Results copied to clipboard!
       </div>
     </div>
 
@@ -423,77 +414,30 @@
     <script>
       // Sync floating theme toggle with the navbar theme toggle
       document.addEventListener('DOMContentLoaded', function() {
-        // Initialize theme from localStorage
-        if (localStorage.getItem('theme') === 'dark') {
-          document.body.classList.add('dark-mode');
-          const icons = document.querySelectorAll('#themeIcon, #floatingThemeIcon');
-          icons.forEach(icon => {
-            if (icon) {
-              icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
-            }
-          });
-        }
-        
-        // Set up theme toggle buttons
-        const themeToggleButtons = document.querySelectorAll('#theme-toggle, #floating-theme-toggle');
-        themeToggleButtons.forEach(button => {
-          if (button) {
-            button.addEventListener('click', function() {
-              document.body.classList.toggle('dark-mode');
-              const isDarkMode = document.body.classList.contains('dark-mode');
-              localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-              
-              const icons = document.querySelectorAll('#themeIcon, #floatingThemeIcon');
-              icons.forEach(icon => {
-                if (icon) {
+        const floatingToggle = document.getElementById('floating-theme-toggle');
+        if (floatingToggle) {
+          floatingToggle.addEventListener('click', toggleTheme);
+          
+          // Update floating toggle icon when theme changes
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.attributeName === 'class') {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const floatingIcon = document.getElementById('floatingThemeIcon');
+                if (floatingIcon) {
                   if (isDarkMode) {
-                    icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                    floatingIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
                   } else {
-                    icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                    floatingIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
                   }
                 }
-              });
+              }
             });
-          }
-        });
-      });
-      
-      // Function to copy results to clipboard
-      function copyResultsToClipboard() {
-        try {
-          const emailText = document.querySelector('.email-text').textContent;
-          const spamConfidence = document.getElementById('spamConfidenceText').textContent;
-          const notSpamConfidence = document.getElementById('notSpamConfidenceText').textContent;
-          const predictionElement = document.querySelector('.spam-indicator');
-          const predictionText = predictionElement.textContent;
-          
-          const result = `Email Analysis Results:
----------------------
-Verdict: ${predictionText}
-Spam Likelihood: ${spamConfidence}
-Legitimate Email Likelihood: ${notSpamConfidence}
----------------------
-Analyzed Text:
-${emailText}
----------------------
-Analyzed with Advanced Email Spam Detector`;
-
-          navigator.clipboard.writeText(result).then(() => {
-            // Show toast
-            const toastElement = document.getElementById('toastMessage');
-            if (toastElement) {
-              const toast = new bootstrap.Toast(toastElement);
-              toast.show();
-            }
-          }).catch(err => {
-            console.error('Error copying text: ', err);
-            alert('Failed to copy results. Please try again.');
           });
-        } catch (error) {
-          console.error('Error in copyResultsToClipboard:', error);
-          alert('An error occurred while copying results.');
+          
+          observer.observe(document.body, { attributes: true });
         }
-      }
+      });
     </script>
   </body>
 </html>

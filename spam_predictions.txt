@@ -55,3 +55,5 @@ Output 54: 0
 Output 55: 0
 Output 56: 0
 Output 57: 0
+Output 58: 1
+Output 59: 1
