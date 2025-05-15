@@ -91,11 +91,79 @@ def model_report():
     try:
         # Load the report from the JSON file
         with open('spam_model_report.json', 'r') as f:
-            report = json.load(f)
+            report_data = json.load(f)
         
-        # Return the report template with the data
-        return render_template("report.html", report=report)
+        # Extract data for the template
+        dataset_size = report_data['dataset_info']['total_samples']
+        spam_count = report_data['dataset_info']['spam_count']
+        ham_count = report_data['dataset_info']['non_spam_count']
+        spam_percentage = round(report_data['dataset_info']['spam_percentage'], 1)
+        ham_percentage = round(100 - report_data['dataset_info']['spam_percentage'], 1)
+        model_type = report_data['best_model_info']['name']
+        feature_count = len(report_data['dataset_info']['features'])
+        
+        # Performance metrics
+        accuracy = round(report_data['final_performance']['accuracy'] * 100, 1)
+        precision = round(report_data['final_performance']['classification_metrics']['precision'] * 100, 1)
+        recall = round(report_data['final_performance']['classification_metrics']['recall'] * 100, 1)
+        f1_score = round(report_data['final_performance']['classification_metrics']['f1_score'] * 100, 1)
+        
+        # Confusion matrix
+        conf_matrix = report_data['final_performance']['confusion_matrix']
+        true_negatives = conf_matrix[0][0]
+        false_positives = conf_matrix[0][1]
+        false_negatives = conf_matrix[1][0]
+        true_positives = conf_matrix[1][1]
+        
+        # Model comparison
+        nb_accuracy = round(report_data['models_comparison']['Multinomial Naive Bayes']['accuracy'] * 100, 1)
+        lr_accuracy = round(report_data['models_comparison']['Logistic Regression']['accuracy'] * 100, 1)
+        svm_accuracy = round(report_data['models_comparison']['Linear SVM']['accuracy'] * 100, 1)
+        rf_accuracy = round(report_data['models_comparison']['Random Forest']['accuracy'] * 100, 1)
+        
+        # Key features - example placeholder data
+        spam_features = [
+            {'word': 'free', 'score': '0.89'},
+            {'word': 'offer', 'score': '0.82'},
+            {'word': 'click', 'score': '0.78'},
+            {'word': 'cash', 'score': '0.74'},
+            {'word': 'money', 'score': '0.68'}
+        ]
+        
+        ham_features = [
+            {'word': 'meeting', 'score': '0.91'},
+            {'word': 'report', 'score': '0.87'},
+            {'word': 'project', 'score': '0.83'},
+            {'word': 'regards', 'score': '0.76'},
+            {'word': 'schedule', 'score': '0.72'}
+        ]
+        
+        # Pass individual variables to the template for easier access
+        return render_template("report.html", 
+                            report=report_data,
+                            dataset_size=dataset_size,
+                            spam_count=spam_count,
+                            ham_count=ham_count,
+                            spam_percentage=spam_percentage,
+                            ham_percentage=ham_percentage,
+                            model_type=model_type,
+                            feature_count=feature_count,
+                            accuracy=accuracy,
+                            precision=precision,
+                            recall=recall,
+                            f1_score=f1_score,
+                            true_positives=true_positives,
+                            true_negatives=true_negatives,
+                            false_positives=false_positives,
+                            false_negatives=false_negatives,
+                            nb_accuracy=nb_accuracy,
+                            lr_accuracy=lr_accuracy,
+                            svm_accuracy=svm_accuracy,
+                            rf_accuracy=rf_accuracy,
+                            spam_features=spam_features,
+                            ham_features=ham_features)
     except Exception as e:
+        print(f"Error loading report: {str(e)}")
         return render_template("error.html", error=str(e))
 
 if __name__ == '__main__':
