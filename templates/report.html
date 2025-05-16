@@ -15,6 +15,8 @@
     />
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- HTML2PDF for report download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Custom CSS -->
     <style>
       :root {
@@ -214,6 +216,51 @@
       .dark-mode .chart-container canvas {
         filter: brightness(0.9);
       }
+      
+      /* Download button styling */
+      .download-btn {
+        background-color: #4361ee;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .download-btn:hover {
+        background-color: #3a0ca3;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+      
+      .download-btn i {
+        font-size: 1.2rem;
+      }
+      
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        
+        body {
+          background-color: white !important;
+          color: black !important;
+        }
+        
+        .report-section {
+          break-inside: avoid;
+          page-break-inside: avoid;
+          border: none !important;
+          box-shadow: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -262,6 +309,9 @@
       <div class="text-center mt-4">
         <h1>Spam Detection Model Report</h1>
         <p class="lead">Performance analysis of our machine learning model</p>
+        <button id="downloadReport" class="download-btn no-print">
+          <i class="bi bi-file-earmark-arrow-down"></i> Download Report
+        </button>
       </div>
 
       <!-- Model Overview -->
@@ -699,6 +749,20 @@
     >
       <i class="bi bi-moon-fill" id="floatingThemeIcon"></i>
     </button>
+    
+    <!-- Toast notification for download -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="downloadToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <i class="bi bi-check-circle-fill text-success me-2"></i>
+          <strong class="me-auto">Success</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Report downloaded successfully!
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <div class="footer">
@@ -764,6 +828,47 @@
         );
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
           return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        
+        // Set up PDF download functionality
+        document.getElementById('downloadReport').addEventListener('click', function() {
+          // Switch to light mode temporarily for better PDF generation
+          const wasInDarkMode = document.body.classList.contains('dark-mode');
+          if (wasInDarkMode) {
+            document.body.classList.remove('dark-mode');
+          }
+          
+          // Configure PDF options
+          const element = document.querySelector('.report-container');
+          const opt = {
+            margin: [0.5, 0.5, 0.5, 0.5],
+            filename: 'spam_detector_model_report.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+          };
+          
+          // Generate and download PDF
+          html2pdf().from(element).set(opt).save().then(function() {
+            // Restore dark mode if it was active
+            if (wasInDarkMode) {
+              document.body.classList.add('dark-mode');
+            }
+            
+            // Update charts after mode switch
+            if (window.classDistributionChart) {
+              window.classDistributionChart.update();
+            }
+            if (window.modelComparisonChart) {
+              window.modelComparisonChart.update();
+            }
+            
+            // Show success toast
+            const downloadToast = new bootstrap.Toast(document.getElementById('downloadToast'));
+            downloadToast.show();
+            
+            console.log('Report downloaded successfully!');
+          });
         });
 
         // Class Distribution Chart
