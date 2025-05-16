@@ -16,7 +16,7 @@ The project consists of the following components:
 
 - Spam detection model (`spam_detection_model.pkl`)
 - Flask web application (`main.py`)
-- Model report generation (`generate_report.py`)
+- Utility functions (`utility.py`)
 - HTML templates (`templates/`)
 - Static assets (`static/`)
 
@@ -25,7 +25,7 @@ The project consists of the following components:
 1. Clone the repository
 2. Install dependencies:
    ```
-   pip install pandas numpy matplotlib seaborn scikit-learn flask
+   pip install -r requirements.txt
    ```
 3. Run the application:
    ```
