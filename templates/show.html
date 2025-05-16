@@ -4,8 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Results - Advanced Email Spam Detector</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
     <style>
       :root {
         --background-color: #f8f9fa;
@@ -103,7 +109,7 @@
         white-space: pre-wrap;
         word-break: break-word;
         margin-bottom: 20px;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         max-height: 300px;
         overflow-y: auto;
       }
@@ -173,9 +179,13 @@
         text-align: center;
         color: var(--text-color);
       }
-      
+
       .teacher-card {
-        background: linear-gradient(135deg, rgba(58, 12, 163, 0.05) 0%, rgba(67, 97, 238, 0.05) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(58, 12, 163, 0.05) 0%,
+          rgba(67, 97, 238, 0.05) 100%
+        );
         border: 2px solid #4361ee !important;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
@@ -183,12 +193,12 @@
         padding: 15px;
         margin-bottom: 20px;
       }
-      
+
       .teacher-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       }
-      
+
       .teacher-badge {
         background-color: #3a0ca3 !important;
         color: white;
@@ -196,7 +206,7 @@
         padding: 5px 10px;
         border-radius: 4px;
       }
-      
+
       .teacher-name {
         font-weight: bold;
         font-size: 1.1rem;
@@ -218,7 +228,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
         border: none;
       }
@@ -226,15 +236,15 @@
       .theme-toggle:hover {
         transform: scale(1.1);
       }
-      
+
       .debug-info {
         margin-bottom: 20px;
         padding: 15px;
-        background-color: rgba(0,0,0,0.05);
+        background-color: rgba(0, 0, 0, 0.05);
         border-radius: 8px;
         border: 1px dashed var(--border-color);
       }
-      
+
       .toast-container {
         position: fixed;
         bottom: 20px;
@@ -242,7 +252,7 @@
         transform: translateX(-50%);
         z-index: 1050;
       }
-      
+
       .dark-mode .progress {
         background-color: #495057;
       }
@@ -253,7 +263,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
       <div class="container">
         <a class="navbar-brand" href="#">Advanced Email Spam Detector</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -284,15 +299,15 @@
         <h1>Email Analysis Results</h1>
         <p class="lead">Our ML model has analyzed your email content</p>
       </div>
-      
+
       <!-- Progress steps -->
       <div class="progress-steps mb-3">
         <div class="progress-line"></div>
-        <div class="progress-step active">
+        <div class="progress-step">
           <div class="step-number">1</div>
           <div>Input</div>
         </div>
-        <div class="progress-step active">
+        <div class="progress-step">
           <div class="step-number">2</div>
           <div>Analysis</div>
         </div>
@@ -370,7 +385,10 @@
         </div>
 
         <div class="action-buttons">
-          <button onclick="copyResultsToClipboard()" class="btn btn-outline-secondary action-button">
+          <button
+            onclick="copyResultsToClipboard()"
+            class="btn btn-outline-secondary action-button"
+          >
             <i class="bi bi-clipboard"></i> Copy Results
           </button>
           <a href="/" class="btn btn-primary action-button">
@@ -381,75 +399,100 @@
           </a>
         </div>
       </div>
-      
+
       <!-- Footer -->
       <div class="footer">
         <!-- Teacher Section -->
-        <div class="teacher-card mb-4 mx-auto" style="max-width: 500px;">
+        <div class="teacher-card mb-4 mx-auto" style="max-width: 500px">
           <div class="d-flex align-items-center mb-2 justify-content-center">
             <div class="teacher-badge me-2">
               <i class="bi bi-mortarboard-fill me-1"></i>Instructor
             </div>
             <span class="teacher-name">Dr. Shahzad Hussain</span>
           </div>
-          <p class="text-muted mb-0 text-center">Course Supervisor & Project Mentor</p>
+          <p class="text-muted mb-0 text-center">
+            Course Supervisor & Project Mentor
+          </p>
         </div>
         <p>© 2025 Email Spam Detector | Created with ❤️ using Flask & ML</p>
       </div>
     </div>
-    
+
     <!-- Theme Toggle Button -->
-    <div class="theme-toggle" id="floating-theme-toggle" title="Toggle Dark/Light Mode">
+    <div
+      class="theme-toggle"
+      id="floating-theme-toggle"
+      title="Toggle Dark/Light Mode"
+    >
       <i class="bi bi-moon-fill" id="floatingThemeIcon"></i>
     </div>
-    
+
     <!-- Toast notification for copy -->
     <div class="toast-container">
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="toastMessage" data-bs-autohide="true" data-bs-delay="3000">
+      <div
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        id="toastMessage"
+        data-bs-autohide="true"
+        data-bs-delay="3000"
+      >
         <div class="toast-header">
-          <strong class="me-auto"><i class="bi bi-info-circle me-2"></i>Notification</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          <strong class="me-auto"
+            ><i class="bi bi-info-circle me-2"></i>Notification</strong
+          >
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
         </div>
-        <div class="toast-body">
-          Results copied to clipboard!
-        </div>
+        <div class="toast-body">Results copied to clipboard!</div>
       </div>
     </div>
 
     <!-- Bootstrap JS and custom scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/scripts.js"></script>
-    
+
     <script>
       // Sync floating theme toggle with the navbar theme toggle
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         // Initialize theme from localStorage
-        if (localStorage.getItem('theme') === 'dark') {
-          document.body.classList.add('dark-mode');
-          const icons = document.querySelectorAll('#themeIcon, #floatingThemeIcon');
-          icons.forEach(icon => {
+        if (localStorage.getItem("theme") === "dark") {
+          document.body.classList.add("dark-mode");
+          const icons = document.querySelectorAll(
+            "#themeIcon, #floatingThemeIcon"
+          );
+          icons.forEach((icon) => {
             if (icon) {
-              icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+              icon.classList.replace("bi-moon-fill", "bi-sun-fill");
             }
           });
         }
-        
+
         // Set up theme toggle buttons
-        const themeToggleButtons = document.querySelectorAll('#theme-toggle, #floating-theme-toggle');
-        themeToggleButtons.forEach(button => {
+        const themeToggleButtons = document.querySelectorAll(
+          "#theme-toggle, #floating-theme-toggle"
+        );
+        themeToggleButtons.forEach((button) => {
           if (button) {
-            button.addEventListener('click', function() {
-              document.body.classList.toggle('dark-mode');
-              const isDarkMode = document.body.classList.contains('dark-mode');
-              localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-              
-              const icons = document.querySelectorAll('#themeIcon, #floatingThemeIcon');
-              icons.forEach(icon => {
+            button.addEventListener("click", function () {
+              document.body.classList.toggle("dark-mode");
+              const isDarkMode = document.body.classList.contains("dark-mode");
+              localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+
+              const icons = document.querySelectorAll(
+                "#themeIcon, #floatingThemeIcon"
+              );
+              icons.forEach((icon) => {
                 if (icon) {
                   if (isDarkMode) {
-                    icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                    icon.classList.replace("bi-moon-fill", "bi-sun-fill");
                   } else {
-                    icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                    icon.classList.replace("bi-sun-fill", "bi-moon-fill");
                   }
                 }
               });
@@ -457,16 +500,19 @@
           }
         });
       });
-      
+
       // Function to copy results to clipboard
       function copyResultsToClipboard() {
         try {
-          const emailText = document.querySelector('.email-text').textContent;
-          const spamConfidence = document.getElementById('spamConfidenceText').textContent;
-          const notSpamConfidence = document.getElementById('notSpamConfidenceText').textContent;
-          const predictionElement = document.querySelector('.spam-indicator');
+          const emailText = document.querySelector(".email-text").textContent;
+          const spamConfidence =
+            document.getElementById("spamConfidenceText").textContent;
+          const notSpamConfidence = document.getElementById(
+            "notSpamConfidenceText"
+          ).textContent;
+          const predictionElement = document.querySelector(".spam-indicator");
           const predictionText = predictionElement.textContent;
-          
+
           const result = `Email Analysis Results:
 ---------------------
 Verdict: ${predictionText}
@@ -478,20 +524,23 @@ ${emailText}
 ---------------------
 Analyzed with Advanced Email Spam Detector`;
 
-          navigator.clipboard.writeText(result).then(() => {
-            // Show toast
-            const toastElement = document.getElementById('toastMessage');
-            if (toastElement) {
-              const toast = new bootstrap.Toast(toastElement);
-              toast.show();
-            }
-          }).catch(err => {
-            console.error('Error copying text: ', err);
-            alert('Failed to copy results. Please try again.');
-          });
+          navigator.clipboard
+            .writeText(result)
+            .then(() => {
+              // Show toast
+              const toastElement = document.getElementById("toastMessage");
+              if (toastElement) {
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+              }
+            })
+            .catch((err) => {
+              console.error("Error copying text: ", err);
+              alert("Failed to copy results. Please try again.");
+            });
         } catch (error) {
-          console.error('Error in copyResultsToClipboard:', error);
-          alert('An error occurred while copying results.');
+          console.error("Error in copyResultsToClipboard:", error);
+          alert("An error occurred while copying results.");
         }
       }
     </script>

@@ -91,8 +91,28 @@ def model_report():
         # Get formatted data for the template
         template_data = format_report_data(report_data)
         
-        # Pass all data, including the full report
-        template_data['report'] = report_data
+        # Add full report data 
+        template_data['full_report'] = report_data
+        
+        # Make data available for charts
+        template_data['dataset_json'] = json.dumps({
+            'datasetSize': template_data['dataset_size'],
+            'spamCount': template_data['spam_count'],
+            'hamCount': template_data['ham_count'],
+            'accuracy': template_data['accuracy'],
+            'precision': template_data['precision'],
+            'recall': template_data['recall'],
+            'f1Score': template_data['f1_score'],
+            'naiveBayesAccuracy': template_data['nb_accuracy'],
+            'logisticRegressionAccuracy': template_data['lr_accuracy'],
+            'svmAccuracy': template_data['svm_accuracy'],
+            'randomForestAccuracy': template_data['rf_accuracy'],
+            'spamFeatures': template_data['spam_features'],
+            'hamFeatures': template_data['ham_features']
+        })
+        
+        # Print to console for debugging
+        print("Report data loaded successfully")
         
         return render_template("report.html", **template_data)
     except Exception as e:
