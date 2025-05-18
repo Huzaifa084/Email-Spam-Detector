@@ -1,0 +1,29 @@
+# Ignore virtual environment folder
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore data files (if you want to exclude CSVs, otherwise remove these lines)
+*.csv
+*.txt
+
+# Ignore model files (if you want to exclude models, otherwise remove these lines)
+*.pkl
+*.json
+
+# Ignore images (optional)
+*.png
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log

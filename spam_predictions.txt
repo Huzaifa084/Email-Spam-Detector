@@ -12,3 +12,6 @@ Output 11: 0
 Output 12: 0
 Output 13: 1
 Output 14: 1
+Output 15: 1
+Output 16: 1
+Output 17: 0
